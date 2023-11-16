@@ -1,4 +1,4 @@
-import logger from "../utils/logger.js";
+import logger from "../Utils/logger.js";
 
 // Middleware for logging requests and responses.
 const requestLogger = (req, res, next) => {

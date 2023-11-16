@@ -1,4 +1,4 @@
-import logger from "../utils/logger.js";
+import logger from "../Utils/logger.js";
 
 // Middleware for handling custom errors
 const errorHandler = (err, req, res, next) => {

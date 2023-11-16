@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
-import logger from "./utils/logger.js";
-import requestLogger from "./middlewares/requestLogger.js";
-import errorHandler from "./middlewares/errorHandler.js";
+import logger from "./Utils/logger.js";
+import requestLogger from "./Middlewares/requestLogger.js";
+import errorHandler from "./Middlewares/errorHandler.js";
 
 // load the environment variables.
 dotenv.config();
@@ -23,5 +23,9 @@ app.use(errorHandler);
 
 // listen on port
 app.listen(PORT, () => {
-  logger.info(`Backend server is listen on port: ${PORT}`);
+  try {
+    logger.info(`Backend server is listen on port: ${PORT}`);
+  } catch (error) {
+    logger.error(error);
+  }
 });
