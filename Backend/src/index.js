@@ -1,8 +1,11 @@
 import express from "express";
+import session from "express-session";
 import dotenv from "dotenv";
 import logger from "./Utils/logger.js";
 import requestLogger from "./Middlewares/requestLogger.js";
 import errorHandler from "./Middlewares/errorHandler.js";
+import authRouter from "./Routes/authRoutes.js";
+import dashboardRouter from "./Routes/dashboardRoutes.js";
 
 // load the environment variables.
 dotenv.config();
@@ -16,7 +19,18 @@ const PORT = process.env.PORT;
 app.use(requestLogger);
 app.use(express.json());
 
+// Express session middleware
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 // routes
+app.use("/auth", authRouter);
+app.use("/", dashboardRouter);
 
 // Error handler middleware
 app.use(errorHandler);
