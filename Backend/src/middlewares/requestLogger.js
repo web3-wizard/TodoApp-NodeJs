@@ -2,11 +2,21 @@ import logger from "../utils/logger.js";
 
 // Middleware for logging requests and responses.
 const requestLogger = (req, res, next) => {
-  logger.info(`Received ${req.method} request to ${req.originalUrl}`);
+  const start = new Date();
+  const ip = req.ip || req.connection.remoteAddress;
+  // log the request information
+  logger.info(
+    `[${start.toLocaleString()}] ${ip} - ${req.method} ${req.originalUrl}`
+  );
 
   res.on("finish", () => {
+    const end = new Date();
+    const duration = end - start;
+    // log the response information
     logger.info(
-      `Sent ${res.statusCode} response for ${req.method} request to ${req.originalUrl}`
+      `[${end.toLocaleString()}] ${ip} - ${req.method} ${req.originalUrl} - ${
+        res.statusCode
+      } [${duration}ms]`
     );
   });
 

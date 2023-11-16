@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import logger from "./utils/logger.js";
 import requestLogger from "./middlewares/requestLogger.js";
+import errorHandler from "./middlewares/errorHandler.js";
 
 // load the environment variables.
 dotenv.config();
@@ -11,14 +12,14 @@ const app = express();
 const PORT = process.env.PORT;
 
 // middlewares
+// Use the requestLogger middleware for all routes
 app.use(requestLogger);
 app.use(express.json());
 
 // routes
-app.get("/test", (req, res) => {
-  logger.info("Server is working");
-  res.send("Welcome to our server. Server is running.....");
-});
+
+// Error handler middleware
+app.use(errorHandler);
 
 // listen on port
 app.listen(PORT, () => {

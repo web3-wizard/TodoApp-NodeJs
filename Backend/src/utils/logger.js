@@ -1,6 +1,6 @@
 import winston, { createLogger } from "winston";
 
-const { combine, timestamp, simple, colorize, printf } = winston.format;
+const { combine, timestamp, json, colorize, printf } = winston.format;
 const { Console } = winston.transports;
 
 // Define the log levels and colors
@@ -21,7 +21,7 @@ const logColors = {
 // Create the Winston logger
 const logger = createLogger({
   levels: logLevels,
-  format: combine(timestamp(), simple()),
+  format: combine(timestamp(), json()),
   transports: [
     new Console({
       format: combine(
