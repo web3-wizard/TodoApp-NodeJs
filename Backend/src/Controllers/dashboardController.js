@@ -4,7 +4,10 @@ const dashboard = (req, res) => {
   if (req.session.user) {
     res
       .status(200)
-      .json({ message: "Welcome to the dashboard", user: req.session.user });
+      .json({
+        message: "Welcome to the dashboard",
+        username: req.session.user.username,
+      });
   } else {
     res.status(401).json({ error: "Unauthorized" });
   }
